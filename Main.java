@@ -20,7 +20,6 @@ public class Main{
             statement.setInt(3, 1788569678);
             statement.setFloat(4, 10);
             statement.setFloat(5, 9);
-            //    statement.setFloat(5, 10);
 
             int rowsInserted = statement.executeUpdate();
 
@@ -31,9 +30,6 @@ public class Main{
         } catch (Exception exception){
             System.out.println("Error: " + exception.getMessage());
         }
-
-
-
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -55,6 +51,49 @@ public class Main{
             }
 
         }catch(Exception exception){
+            System.out.println("Error: " + exception.getMessage());
+        }
+
+        // Actualizar un registro
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+            String sql = "UPDATE calificaciones SET nombre = ?, nota1 = ?, nota2 = ? WHERE id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, "Carlos");
+            statement.setFloat(2, 8);
+            statement.setFloat(3, 7);
+            statement.setInt(4, 2);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            if(rowsUpdated > 0){
+                System.out.println("Se actualizo un registro");
+            }
+
+        } catch (Exception exception){
+            System.out.println("Error: " + exception.getMessage());
+        }
+
+        // Eliminar un registro
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+            String sql = "DELETE FROM calificaciones WHERE id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, 2);
+
+            int rowsDeleted = statement.executeUpdate();
+
+            if(rowsDeleted > 0){
+                System.out.println("Se elimino un registro");
+            }
+
+        } catch (Exception exception){
             System.out.println("Error: " + exception.getMessage());
         }
     }
